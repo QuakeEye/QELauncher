@@ -2,25 +2,54 @@ name: Build Godot Project
 
 on: push
 
-jobs:
-  Godot:
+export_game:
+    # Always use ubuntu-latest for this action
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        platform: [Windows Desktop, macOS, Linux/X11]
+    # Add permission for release creation. Can be made narrower according to your needs
+    permissions: write-all
+    # Job name, can be anything
+    name: Export Game
     steps:
-      - uses: actions/checkout@v2
-        with:
-          lfs: true
-      - name: Build
-        id: build
-        uses: manleydev/build-godot-action@v1.5.0
-        with:
-          name: example
-          preset: ${{ matrix.platform }}
-          debugMode: "true"
-      - name: Upload Artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: Client - ${{ matrix.platform }}
-          path: ${{ github.workspace }}/${{ steps.build.outputs.build }}
+      # Always include the checkout step so that 
+      # your project is available for Godot to export
+    - name: checkout
+      uses: actions/checkout@v3.3.0
+  
+    - name: export game
+      id: export
+      # Use latest version (see releases for all versions)
+      uses: firebelley/godot-export@v5.2.1
+      with:
+        # Defining all the required inputs
+        godot_executable_download_url: https://downloads.tuxfamily.org/godotengine/4.0/Godot_v4.0-stable_linux.x86_64.zip
+        godot_export_templates_download_url: https://downloads.tuxfamily.org/godotengine/4.0/Godot_v4.0-stable_export_templates.tpz
+        relative_project_path: ./
+        archive_output: true
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: Client - ${{ matrix.platform }}
+        path: ${{ github.workspace }}/${{ steps.build.outputs.build }}
+
+# jobs:
+#   Godot:
+#     runs-on: ubuntu-latest
+#     strategy:
+#       matrix:
+#         platform: [Windows Desktop, macOS, Linux/X11]
+#     steps:
+#       - uses: actions/checkout@v2
+#         with:
+#           lfs: true
+#       - name: Build
+#         id: build
+#         uses: manleydev/build-godot-action@v1.5.0
+#         with:
+#           name: example
+#           preset: ${{ matrix.platform }}
+#           debugMode: "true"
+#       - name: Upload Artifact
+#         uses: actions/upload-artifact@v2
+#         with:
+#           name: Client - ${{ matrix.platform }}
+#           path: ${{ github.workspace }}/${{ steps.build.outputs.build }}
