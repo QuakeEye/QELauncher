@@ -1,6 +1,7 @@
-[gd_scene load_steps=10 format=3 uid="uid://cih1mrao72vsr"]
+[gd_scene load_steps=11 format=3 uid="uid://cih1mrao72vsr"]
 
-[ext_resource type="Texture2D" uid="uid://dbg8ydd1td41b" path="res://images/simple_logo.png" id="1_5mtug"]
+[ext_resource type="Texture2D" uid="uid://dej2r5i8vlqp1" path="res://images/icons/setting-line-icon.svg" id="1_0iemg"]
+[ext_resource type="Script" path="res://scripts/SettingsButton.cs" id="2_bmwbt"]
 [ext_resource type="Texture2D" uid="uid://dvxse43f1lw3o" path="res://images/default_banner.png" id="2_v7nnu"]
 [ext_resource type="Script" path="res://scripts/DownloadButton.cs" id="3_kn8uu"]
 
@@ -57,21 +58,21 @@ theme_override_constants/margin_bottom = 32
 layout_mode = 2
 theme_override_constants/separation = 5
 
-[node name="Logo" type="TextureRect" parent="Background/MarginContainer/VBoxContainer"]
-visible = false
-use_parent_material = true
+[node name="HBoxContainer" type="HBoxContainer" parent="Background/MarginContainer/VBoxContainer"]
 layout_mode = 2
-size_flags_vertical = 3
-texture = ExtResource("1_5mtug")
-expand_mode = 1
-stretch_mode = 5
 
-[node name="Label" type="Label" parent="Background/MarginContainer/VBoxContainer"]
+[node name="TitleLable" type="Label" parent="Background/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 text = "QELauncher"
 label_settings = SubResource("LabelSettings_kw3lq")
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Button" type="Button" parent="Background/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 10
+icon = ExtResource("1_0iemg")
+script = ExtResource("2_bmwbt")
 
 [node name="ProjectContent" type="Panel" parent="Background/MarginContainer/VBoxContainer"]
 layout_mode = 2
