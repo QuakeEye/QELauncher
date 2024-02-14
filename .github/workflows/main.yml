@@ -19,6 +19,7 @@ jobs:
           name: example
           preset: ${{ matrix.platform }}
           debugMode: "true"
+          verbose: "true"
       - name: Upload Artifact
         uses: actions/upload-artifact@v2
         with:
