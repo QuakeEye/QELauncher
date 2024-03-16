@@ -14,11 +14,12 @@ jobs:
           lfs: true
       - name: Build
         id: build
-        uses: QuakeEye/godot-mono-build-action@v0.0.3
+        uses: QuakeEye/godot-mono-build-action@v0.0.5
         with:
           name: example
           preset: ${{ matrix.platform }}
-          debugMode: "true"
+          debugMode: true
+          runVerbose: true
       - name: Upload Artifact
         uses: actions/upload-artifact@v2
         with:
