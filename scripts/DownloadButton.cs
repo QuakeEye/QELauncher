@@ -18,12 +18,5 @@ public partial class DownloadButton : Button {
         };
         AddChild(dialog);
 		dialog.PopupCentered();
-
-        dialog.Connect("confirmed", new Callable(this, nameof(onDialogConfirmed)));
-    }
-
-
-    private void onDialogConfirmed(AcceptDialog dialog) {
-        dialog.QueueFree();
     }
 }
