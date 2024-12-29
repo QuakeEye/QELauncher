@@ -9,7 +9,7 @@ jobs:
       matrix:
         platform: [windows, mac, linux]
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
         with:
           lfs: true
       - name: Build
@@ -21,7 +21,7 @@ jobs:
           debugMode: true
           runVerbose: true
       - name: Upload Artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: Client - ${{ matrix.platform }}
           path: ${{ github.workspace }}/${{ steps.build.outputs.build }}
