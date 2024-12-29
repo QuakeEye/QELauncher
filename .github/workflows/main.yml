@@ -1,24 +1,27 @@
 name: Build Godot Project
 
-on: push
+on: 
+  push
 
 jobs:
   Godot:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        platform: [windows, mac, linux]
+        platform: [windows, linux]
     steps:
       - uses: actions/checkout@v4
         with:
           lfs: true
       - name: Build
         id: build
-        uses: QuakeEye/godot-mono-build-action@v0.0.5
+        uses: QuakeEye/godot-mono-build-action@v0.1.1
         with:
-          name: example
+          name: launcher
           preset: ${{ matrix.platform }}
-          debugMode: "true"
+          debugMode: true
+          runVerbose: true
+          isWindows: ${{ matrix.platform == 'windows' }}
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
